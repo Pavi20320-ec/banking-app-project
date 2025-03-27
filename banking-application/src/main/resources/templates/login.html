@@ -4,98 +4,236 @@
     <title>Login - Pavithra Bank</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --font-family: "Space Grotesk", sans-serif;
+            --font-base-size: 16px;
+            --font-weight: 400;
+            --line-height: 1.75;
+            --container-max-width: 1350px;
+            --container-padding: 0px 2rem;
+            --section-padding-y: 6rem;
+            --section-padding-x: 120px;
+            --header-height: 70px;
+            --header-height-scrolled: 80px;
+            --color-primary: linear-gradient(to left, #b64815, rgba(67, 42, 160, 0.9));
+            --color-dark-1: #131313;
+            --color-dark-2: #2d2d2d;
+            --color-dark-3: #353535;
+            --color-gray-1: #777777;
+            --color-gray-2: #979797;
+            --color-gray-3: #bfbfbf;
+            --color-light-gray-1: #e9e9e9;
+            --color-light-gray-2: #f0f0f0;
+            --color-light-gray-3: #f8fafb;
+            --color-green: #31a63e;
+            --color-red: #dd3d43;
+            --transition-default: all 0.3s cubic-bezier(0, 0, 0.58, 1);
+            --timing-transition-1: cubic-bezier(0, 0, 0.58, 1);
+            --dark: #111111;
+            --lightDark: #191919;
+            --myDark: #27292d;
+            --light: #ffffff;
+            --lightGrey: #ddd;
+        }
+
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(to right, #000000, #ffd700);
-            color: #ffffff;
+            font-family: var(--font-family);
+            font-size: var(--font-base-size);
+            font-weight: var(--font-weight);
+            line-height: var(--line-height);
+            background: var(--color-dark-1);
+            color: var(--light);
             margin: 0;
             padding: 0;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background Blur Effects */
+        .bg-blurred-red {
+            position: absolute;
+            z-index: -1;
+            height: 100%;
+            width: 100%;
+        }
+        .bg-blurred-red:before {
+            content: "";
+            position: absolute;
+            right: 40px;
+            top: 0;
+            width: 250px;
+            height: 250px;
+            background: rgba(255, 0, 112, 0.22);
+            filter: blur(100px);
+            z-index: -1;
+            border-radius: 50%;
+        }
+        
+        .bg-blurred-red-1 {
+            position: absolute;
+            z-index: -1;
+            height: 100%;
+            width: 100%;
+        }
+        .bg-blurred-red-1:before {
+            content: "";
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 250px;
+            height: 250px;
+            background: rgba(255, 0, 112, 0.19);
+            filter: blur(100px);
+            z-index: -1;
+            border-radius: 50%;
+        }
+        
+        .bg-blurred-purple {
+            position: absolute;
+            z-index: -1;
+            height: 100%;
+            width: 100%;
+        }
+        .bg-blurred-purple::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 15%;
+            border-radius: 50%;
+            width: 300px;
+            height: 300px;
+            background: rgba(169, 0, 255, 0.42);
+            filter: blur(150px);
+        }
+        
+        .bg-blurred-blue {
+            position: absolute;
+            z-index: -1;
+            height: 100%;
+            width: 100%;
+        }
+        .bg-blurred-blue::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            border-radius: 50%;
+            width: 300px;
+            height: 300px;
+            background: rgba(0, 88, 253, 0.29);
+            filter: blur(130px);
         }
 
         .navbar-custom {
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: var(--lightDark);
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
+            height: var(--header-height);
+            transition: var(--transition-default);
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar-custom.scrolled {
+            background-color: var(--myDark);
+            height: var(--header-height-scrolled);
         }
 
         .navbar-custom a {
-            color: #ffffff !important;
+            color: var(--light) !important;
+            transition: var(--transition-default);
         }
 
         .navbar-custom .navbar-brand {
-            font-weight: bold;
+            font-weight: 700;
+            font-size: 1.5rem;
         }
 
         .navbar-custom .social-icons a {
-            color: #ffffff;
+            color: var(--light);
             margin-left: 15px;
             font-size: 1.2rem;
-            transition: color 0.3s ease;
+            transition: var(--transition-default);
         }
 
         .navbar-custom .social-icons a:hover {
-            color: #ffd700;
+            color: var(--color-gray-3);
         }
 
         .container {
             max-width: 450px;
             padding: 30px;
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: var(--color-dark-2);
             border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
             position: relative;
             text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--color-dark-3);
         }
 
         .container h2 {
-            color: #ffffff;
+            color: var(--light);
             margin-bottom: 20px;
+            font-weight: 500;
         }
 
         .form-group label {
-            color: #dddddd;
+            color: var(--color-gray-3);
             text-align: left;
             display: block;
         }
 
         .form-group input {
-            border: 1px solid #ffd700;
-            background-color: #333;
-            color: #ffffff;
+            border: 1px solid var(--color-gray-2);
+            background-color: var(--color-dark-3);
+            color: var(--light);
+            transition: var(--transition-default);
+        }
+
+        .form-group input:focus {
+            border-color: var(--color-gray-1);
+            background-color: var(--color-dark-3);
+            color: var(--light);
+            box-shadow: 0 0 0 0.2rem rgba(182, 72, 21, 0.25);
         }
 
         .btn {
-            background-color: #ffd700;
+            background: var(--color-primary);
             border: none;
-            color: black;
-            transition: background-color 0.3s ease;
+            color: var(--light);
+            transition: var(--transition-default);
+            font-weight: 500;
         }
 
         .btn:hover {
-            background-color: #ffc700;
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(182, 72, 21, 0.4);
         }
 
         .custom-link {
-            color: #ffd700;
+            color: var(--color-gray-3);
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 500;
+            transition: var(--transition-default);
         }
 
         .custom-link:hover {
-            color: #ffecb3;
+            color: var(--light);
             text-decoration: underline;
         }
 
         .footer {
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
+            background-color: var(--lightDark);
+            color: var(--light);
             padding: 15px 0;
             font-size: 14px;
             position: fixed;
@@ -105,6 +243,24 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
 
+        .footer a {
+            color: var(--color-gray-3);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition-default);
+        }
+
+        .footer a:hover {
+            color: var(--light);
+            text-decoration: underline;
+        }
+
+        .alert-danger {
+            background-color: rgba(221, 61, 67, 0.2);
+            border-color: var(--color-red);
+            color: var(--light);
+        }
+
         @keyframes shake {
             0% { transform: translateX(0); }
             25% { transform: translateX(-5px); }
@@ -112,45 +268,74 @@
             75% { transform: translateX(-5px); }
             100% { transform: translateX(0); }
         }
+
+        /* Responsive adjustments */
+        @media (max-width: 576px) {
+            .container {
+                max-width: 90%;
+                padding: 20px;
+            }
+            
+            .navbar-custom .navbar-brand {
+                font-size: 1.2rem;
+            }
+            
+            .navbar-custom .social-icons a {
+                font-size: 1rem;
+                margin-left: 10px;
+            }
+        }
     </style>
 </head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-custom">
-    <a class="navbar-brand" href="#">Pavithra Bank</a>
-    <div class="ml-auto social-icons">
-        <a href="https://www.youtube.com/@codewithgoldencat" target="_blank" title="YouTube">
-            <i class="fab fa-youtube"></i>
-        </a>
-        <a href="https://www.linkedin.com/in/code-with-goldecat-453460297/" target="_blank" title="LinkedIn">
-            <i class="fab fa-linkedin"></i>
-        </a>
-    </div>
-</nav>
+<body class="dark">
+    <!-- Background Blur Elements -->
+    <div class="bg-blurred-red"></div>
+    <div class="bg-blurred-blue"></div>
+    <div class="bg-blurred-purple"></div>
 
-<div class="container">
-    <h2 class="text-center">Login</h2>
-    <form method="post" action="/login">
-        <div class="form-group">
-            <label>Username:</label>
-            <input type="text" class="form-control" name="username" required />
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <a class="navbar-brand" href="#"><i class="fas fa-university mr-2"></i>Pavithra Bank</a>
+        <div class="ml-auto social-icons">
         </div>
-        <div class="form-group">
-            <label>Password:</label>
-            <input type="password" class="form-control" name="password" required />
+    </nav>
+
+    <div class="container">
+        <h2 class="text-center">Login</h2>
+        <form method="post" action="/login">
+            <div class="form-group">
+                <label>Username:</label>
+                <input type="text" class="form-control" name="username" required />
+            </div>
+            <div class="form-group">
+                <label>Password:</label>
+                <input type="password" class="form-control" name="password" required />
+            </div>
+            <button type="submit" class="btn btn-block">Login</button>
+        </form>
+        <p class="text-center mt-3">Don't have an account? <a href="/register" class="custom-link">Register here</a></p>
+
+        <div th:if="${param.error}" class="alert alert-danger mt-3 text-center shake">
+            Invalid username or password.
         </div>
-        <button type="submit" class="btn btn-block">Login</button>
-    </form>
-    <p class="text-center mt-3">Don't have an account? <a href="/register" class="custom-link">Register here</a></p>
-
-    <div th:if="${param.error}" class="alert alert-danger mt-3 text-center">
-        Invalid username or password.
     </div>
-</div>
 
-<!-- Footer -->
-<footer class="footer">
-    <p>&copy; 2024 Code With Goldencat. All rights reserved. | <a href="#" class="custom-link">Privacy Policy</a> | <a href="#" class="custom-link">Terms of Service</a></p>
-</footer>
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 Pavithra Bank. All rights reserved. | <a href="#" class="custom-link">Privacy Policy</a> | <a href="#" class="custom-link">Terms of Service</a></p>
+    </footer>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                document.querySelector('.navbar-custom').classList.add('scrolled');
+            } else {
+                document.querySelector('.navbar-custom').classList.remove('scrolled');
+            }
+        });
+    </script>
 </body>
 </html>
