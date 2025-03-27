@@ -3,127 +3,297 @@
 <head>
     <title>Transaction History - Pavithra Bank</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --font-family: "Space Grotesk", sans-serif;
+            --font-base-size: 16px;
+            --font-weight: 400;
+            --line-height: 1.75;
+            --container-max-width: 1350px;
+            --container-padding: 0px 2rem;
+            --section-padding-y: 6rem;
+            --section-padding-x: 120px;
+            --header-height: 70px;
+            --header-height-scrolled: 80px;
+            --color-primary: linear-gradient(to left, #b64815, rgba(67, 42, 160, 0.9));
+            --color-dark-1: #131313;
+            --color-dark-2: #2d2d2d;
+            --color-dark-3: #353535;
+            --color-gray-1: #777777;
+            --color-gray-2: #979797;
+            --color-gray-3: #bfbfbf;
+            --color-light-gray-1: #e9e9e9;
+            --color-light-gray-2: #f0f0f0;
+            --color-light-gray-3: #f8fafb;
+            --color-green: #31a63e;
+            --color-red: #dd3d43;
+            --transition-default: all 0.3s cubic-bezier(0, 0, 0.58, 1);
+            --timing-transition-1: cubic-bezier(0, 0, 0.58, 1);
+            --dark: #111111;
+            --lightDark: #191919;
+            --myDark: #27292d;
+            --light: #ffffff;
+            --lightGrey: #ddd;
+        }
+
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(45deg, #FF073A, #000000);
-            color: white;
+            font-family: var(--font-family);
+            font-size: var(--font-base-size);
+            font-weight: var(--font-weight);
+            line-height: var(--line-height);
+            background: var(--color-dark-1);
+            color: var(--light);
             margin: 0;
             padding: 0;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: flex-start;
             flex-direction: column;
+            position: relative;
+        }
+
+        /* Background Blur Effects */
+        .bg-blurred-red {
+            position: absolute;
+            z-index: -1;
+            height: 100%;
+            width: 100%;
+        }
+        .bg-blurred-red:before {
+            content: "";
+            position: absolute;
+            right: 40px;
+            top: 0;
+            width: 250px;
+            height: 250px;
+            background: rgba(255, 0, 112, 0.22);
+            filter: blur(100px);
+            z-index: -1;
+            border-radius: 50%;
+        }
+        
+        .bg-blurred-red-1 {
+            position: absolute;
+            z-index: -1;
+            height: 100%;
+            width: 100%;
+        }
+        .bg-blurred-red-1:before {
+            content: "";
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 250px;
+            height: 250px;
+            background: rgba(255, 0, 112, 0.19);
+            filter: blur(100px);
+            z-index: -1;
+            border-radius: 50%;
+        }
+        
+        .bg-blurred-purple {
+            position: absolute;
+            z-index: -1;
+            height: 100%;
+            width: 100%;
+        }
+        .bg-blurred-purple::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 15%;
+            border-radius: 50%;
+            width: 300px;
+            height: 300px;
+            background: rgba(169, 0, 255, 0.42);
+            filter: blur(150px);
+        }
+        
+        .bg-blurred-blue {
+            position: absolute;
+            z-index: -1;
+            height: 100%;
+            width: 100%;
+        }
+        .bg-blurred-blue::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            border-radius: 50%;
+            width: 300px;
+            height: 300px;
+            background: rgba(0, 88, 253, 0.29);
+            filter: blur(130px);
         }
 
         .navbar-custom {
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: var(--lightDark);
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
+            height: var(--header-height);
+            transition: var(--transition-default);
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar-custom.scrolled {
+            background-color: var(--myDark);
+            height: var(--header-height-scrolled);
         }
 
         .navbar-custom a {
-            color: #ffffff !important;
+            color: var(--light) !important;
+            transition: var(--transition-default);
+        }
+
+        .navbar-custom a:hover {
+            color: var(--color-gray-3) !important;
         }
 
         .navbar-custom .navbar-brand {
-            font-weight: bold;
+            font-weight: 700;
         }
 
         .container {
-            max-width: 1000px;
-            margin-top: 80px; /* Reduced margin for the table to be closer to the top */
+            max-width: var(--container-max-width);
+            margin-top: calc(var(--header-height) + 20px);
+            padding: var(--container-padding);
             text-align: center;
+            position: relative;
+            z-index: 1;
         }
 
         h2 {
+            color: var(--light);
             margin-bottom: 20px;
+            font-weight: 500;
         }
 
         .table-custom {
-            background-color: rgba(0, 0, 0, 0.8); /* Darker background for better contrast */
+            background-color: var(--color-dark-2);
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-            overflow-x: auto; /* Ensures table is responsive */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            overflow-x: auto;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--color-dark-3);
         }
 
         .table-striped tbody tr:nth-of-type(odd) {
-            background-color: rgba(255, 255, 255, 0.1); /* Slightly lighter row color */
+            background-color: var(--color-dark-3);
         }
 
         .table-striped td, .table-striped th {
-            color: #ffffff; /* White text color for visibility */
-            font-weight: bold; /* Bolder text for readability */
-            padding: 15px; /* Increase padding for better spacing */
-            border-bottom: 1px solid red; /* Yellow border for rows */
+            color: var(--light);
+            font-weight: 500;
+            padding: 15px;
+            border-bottom: 1px solid var(--color-gray-2);
         }
 
         .table-striped th {
-            background-color: red; /* Light golden background for headers */
+            background: var(--color-primary);
+            color: var(--light);
         }
 
         .text-success {
-            color: #28a745 !important;
+            color: var(--color-green) !important;
         }
 
         .text-danger {
-            color: yellow !important;
+            color: var(--color-red) !important;
         }
 
         .custom-link {
-            color: red;
+            color: var(--color-gray-3);
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 500;
+            transition: var(--transition-default);
         }
 
         .custom-link:hover {
-            color: #ffecb3;
+            color: var(--light);
             text-decoration: underline;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                margin-top: calc(var(--header-height-scrolled) + 10px);
+                padding: 1rem;
+            }
+            
+            .table-custom {
+                padding: 10px;
+            }
+            
+            .table-striped td, .table-striped th {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-custom">
-    <a class="navbar-brand" href="#">Pavithra Bank</a>
-    <ul class="navbar-nav ml-auto">
-        <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
-        <li class="nav-item"><a class="nav-link" href="/transactions">Transactions</a></li>
-        <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
-    </ul>
-</nav>
+<body class="dark">
+    <!-- Background Blur Elements -->
+    <div class="bg-blurred-red"></div>
+    <div class="bg-blurred-blue"></div>
+    <div class="bg-blurred-purple"></div>
 
-<div class="container">
-    <h2 class="text-center">Transaction History</h2>
-    <div class="table-responsive table-custom">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Type</th>
-                <th>Amount</th>
-                <th>Date</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="transaction : ${transactions}">
-                <td th:text="${transaction.id}"></td>
-                <td th:text="${transaction.type}"></td>
-                <td th:text="${transaction.amount}"
-                    th:classappend="${transaction.type.contains('Transfer In') || transaction.type == 'Deposit'} ? 'text-success' : 'text-danger'">
-                    <span th:text="${transaction.type.contains('Transfer In') || transaction.type == 'Deposit'} ? '+$' + transaction.amount : '-$' + transaction.amount"></span>
-                </td>
-                <td th:text="${transaction.timestamp}"></td>
-            </tr>
-            </tbody>
-        </table>
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <a class="navbar-brand" href="#"><i class="fas fa-university mr-2"></i>Pavithra Bank</a>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="/transactions">Transactions</a></li>
+            <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2 class="text-center">Transaction History</h2>
+        <div class="table-responsive table-custom">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="transaction : ${transactions}">
+                    <td th:text="${transaction.id}"></td>
+                    <td th:text="${transaction.type}"></td>
+                    <td th:text="${transaction.amount}"
+                        th:classappend="${transaction.type.contains('Transfer In') || transaction.type == 'Deposit'} ? 'text-success' : 'text-danger'">
+                        <span th:text="${transaction.type.contains('Transfer In') || transaction.type == 'Deposit'} ? '+$' + transaction.amount : '-$' + transaction.amount"></span>
+                    </td>
+                    <td th:text="${transaction.timestamp}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p class="text-center mt-4"><a href="/dashboard" class="custom-link">Back to Dashboard</a></p>
     </div>
 
-    <p class="text-center"><a href="/dashboard" class="custom-link">Back to Dashboard</a></p>
-</div>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                document.querySelector('.navbar-custom').classList.add('scrolled');
+            } else {
+                document.querySelector('.navbar-custom').classList.remove('scrolled');
+            }
+        });
+    </script>
 </body>
 </html>
